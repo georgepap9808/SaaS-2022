@@ -4,33 +4,24 @@ from .. import db, login_manager
 from ..models import User
 from flask import make_response, request, jsonify
 import requests
-from flask_login import current_user, login_user, logout_user, login_required
 
-@login_manager.user_loader
-def load_user(email):
-    return User.query.filter_by(email = email).first()
 
-@login_manager.request_loader
-def load_user_from_request(request):
-    token = request.headers.get('Authorization')
-    if token:
-        token = token.replace('Basic ', '', 1)
-        user = User.query.filter_by(token = token).first()
-        if user:
-            return user
-    return None
 
-###MAKE LOGIN ROUTE !!!!
 @user_api_blueprint.route('/api/user/login', methods=['POST'])
 def post_login():
-    google_token = request.form['token']
+
+
+    google_token = request.args['token']
     url  = "https://oauth2.googleapis.com/tokeninfo?id_token="+google_token
     response = requests.get(url)
+
+
+
 
     if response.status_code == 200:
         email = response.json()['email']
 
-        user = User.query.filter_by(email).first()
+        user = User.query.filter_by(email =email).first()
         if user:
             user.token = google_token
             user.authenticated = True
@@ -57,7 +48,7 @@ def post_login():
 
 @user_api_blueprint.route('/api/user/logout', methods=['POST'])
 def post_logout():
-    user = User.query.filter_by(email = request['email']).first()
+    user = User.query.filter_by(email = request.args['email']).first()
     if user.authenticated:
         user.authenticated = False
         user.token   = None
@@ -67,5 +58,9 @@ def post_logout():
 
 
 
-
-
+@user_api_blueprint.route('/api/user/user', methods=['GET'])
+def get_user():
+    user = User.query.filter_by(token = request.args['email'])
+    if user.authenticated:
+        return make_response(jsonify({'result': user.to_json()}))
+    return make_response(jsonify({'message': 'Not logged in'})), 401

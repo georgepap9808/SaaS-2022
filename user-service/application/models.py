@@ -36,3 +36,5 @@ class User( db.Model):
             'last_login': self.last_login,
             'subscription_expiration': self.subscription_expiration
         }
+
+
