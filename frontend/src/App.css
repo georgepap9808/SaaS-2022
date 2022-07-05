@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+body {
+ /* background-image: url(https://www.shell.com/business-customers/lubricants-for-business/products/wind-power/_jcr_content/pagePromo/image.img.960.jpeg/1527166714706/turbines-on-horizon.jpeg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 77%;*/
+}
