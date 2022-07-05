@@ -4,8 +4,11 @@ from datetime import timedelta
 from flask_login import UserMixin
 
 
+def subscription_default():
+    result = datetime.utcnow() + timedelta(days=30)
+    return result
 
-class User(UserMixin, db.Model):
+class User( db.Model):
 
     email = db.Column(db.String(255), primary_key=True)
     first_name = db.Column(db.String(255), unique=False, nullable=True)
@@ -16,8 +19,8 @@ class User(UserMixin, db.Model):
     authenticated = db.Column(db.Boolean, default=False)
     token = db.Column(db.String(255), unique=True, nullable=True)
 
-    last_login = db.Column(db.DateTime, nullable = True)
-    subscription_expiration = db.Column(db.DateTime, nullable = False , default = datetime.utcnow + timedelta(days = 30) )
+    last_login = db.Column(db.DateTime, default= datetime.utcnow)
+    subscription_expiration = db.Column(db.DateTime, nullable = False , default = subscription_default)
 
     def __repr__(self):
         return '<User %r>' % (self.email)
