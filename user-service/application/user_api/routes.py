@@ -27,7 +27,7 @@ def post_login():
             user.authenticated = True
             db.session.commit()
 
-            return make_response(jsonify({'message': 'Logged in', 'token': user.token}))
+            return make_response(jsonify({'message': 'Logged in', 'token': user.token, 'email':user.email}))
         else:
             first_name = response.json()['given_name']
             last_name = response.json()['family_name']
@@ -49,18 +49,34 @@ def post_login():
 @user_api_blueprint.route('/api/user/logout', methods=['POST'])
 def post_logout():
     user = User.query.filter_by(email = request.args['email']).first()
-    if user.authenticated:
-        user.authenticated = False
-        user.token   = None
-        db.session.commit()
-        return make_response(jsonify({'message': 'You are logged out'}))
-    return make_response(jsonify({'message': 'You are not logged in'}))
+
+    if user:
+        if user.authenticated:
+            if user.token != request.args['token']:
+                return make_response(jsonify({'message': 'invalid token'}), 401)
+
+            user.authenticated = False
+            user.token  = None
+            db.session.commit()
+            return make_response(jsonify({'message': 'Logged out'}))
+
+        return make_response(jsonify({'message': 'Not logged in'}), 401)
+
+    return make_response(jsonify({'message': 'User does not exist'}), 401)
 
 
 
 @user_api_blueprint.route('/api/user/user', methods=['GET'])
 def get_user():
-    user = User.query.filter_by(token = request.args['email'])
-    if user.authenticated:
-        return make_response(jsonify({'result': user.to_json()}))
-    return make_response(jsonify({'message': 'Not logged in'})), 401
+    user = User.query.filter_by(email = request.args['email']).first()
+
+    if user:
+        if user.authenticated:
+            if user.token != request.args['token']:
+                return make_response(jsonify({'message': 'invalid token'}), 401)
+
+            return make_response(jsonify({'result': user.to_json()}))
+
+        return make_response(jsonify({'message': 'Not logged in'}), 401)
+
+    return make_response(jsonify({'message': 'User does not exist'}), 401)
