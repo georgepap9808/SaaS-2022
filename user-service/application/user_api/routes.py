@@ -42,7 +42,7 @@ def post_login():
             db.session.add(user)
             db.session.commit()
 
-            return make_response(jsonify({'message': 'User Added', 'result': user.to_json(),'token': user.token}))
+            return make_response(jsonify({'message': 'User Added', 'result': user.to_json(),'token': user.token,'email':user.email}))
 
     return make_response(jsonify({'message': 'Not logged in'}), 401)
 
