@@ -1,4 +1,6 @@
 #olo to zoumi einai edo
+import datetime
+
 from . import user_api_blueprint
 from .. import db, login_manager
 from ..models import User
@@ -64,6 +66,28 @@ def post_logout():
 
     return make_response(jsonify({'message': 'User does not exist'}), 401)
 
+@user_api_blueprint.route('/api/user/subextend', methods=['POST'])
+def post_subextend():
+    user = User.query.filter_by(email = request.args['email']).first()
+    days = request.args['days']
+
+
+
+    if user:
+        if user.authenticated:
+
+            if user.token != request.args['token']:
+                return make_response(jsonify({'message': 'invalid token'}), 401)
+
+
+            user.subscription_expiration = user.subscription_expiration + datetime.timedelta(days = int(days) )
+
+            db.session.commit()
+            return make_response(jsonify({'message': 'successfully extended','new_expiration':user.subscription_expiration}))
+
+        return make_response(jsonify({'message': 'Not logged in'}), 401)
+
+    return make_response(jsonify({'message': 'User does not exist'}), 401)
 
 
 @user_api_blueprint.route('/api/user/user', methods=['GET'])
