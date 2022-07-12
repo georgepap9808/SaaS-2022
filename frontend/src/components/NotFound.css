@@ -1,0 +1,7 @@
+.notfound .back{
+    color: rgb(87, 17, 94);
+    text-decoration: none;
+}
+.notfound .back:hover{
+    text-decoration: underline;
+}

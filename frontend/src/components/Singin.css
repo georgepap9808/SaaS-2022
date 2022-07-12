@@ -1,21 +1,95 @@
-.main .image{
-    padding-top: 80px;
-    padding-down: 20px;
+body{
+    background-image: url("https://www.shell.com/business-customers/lubricants-for-business/products/wind-power/_jcr_content/pagePromo/image.img.960.jpeg/1527166714706/turbines-on-horizon.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /*if we scoll , the backgound image stays frozen*/
+    /*height: 100%;*/
 }
 
-.main .title{
-    padding-top: 10px;
+.singin .ntua_logo{
+    padding-top: 30px;
+    float: right;
+    margin-right: 40px;
 }
 
-.main .Google{
+.singin .image{
+    padding-top: 75px;
+    margin-left: 129px;
+}
+
+.singin .title{
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding-top: 5px;
+    font-size: 58px;
+    color: rgb(5, 150, 0);
+    text-decoration: none;
+    font-style: italic;
+}
+
+.singin .thunder{
+    margin-bottom: 30px;
+}
+
+
+/*.singin .Google{
     padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
     margin-left: auto;
     margin-right: auto;
     width: 180px;
     height: 30px;
-    background-color: rgb(150, 152, 160);
-    
+}
+*/
+
+.singin .Google .words {
+    display: inline-block;
+    font-size: 25px;
+    color: rgb(0, 204, 255);
+    text-decoration: none ;
+    border: 2.5px solid rgb(0, 204, 255);
+    border-radius: 25px;
+    background-color: white;
+    padding: 6px 12px;
+    opacity: 0.8;
+}
+
+.singin .Google .words:hover{
+    color: white;
+    background-color: rgb(0, 123, 238);
+    opacity: 1;
+}
+
+
+.singin .line{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12px;
+    color: rgb(20, 24, 214);
+    padding-top: 40px;
+}
+
+span{
+    margin-left: 60px;
+    margin-right: 60px;
+    color: white;
+    font-weight: bold;
+}
+
+.singin .last{
+    padding-top: 0px;
+    padding-bottom: 50px;
+}
+
+.singin .last .legal{
+    color: white;
+    text-decoration: none;
+}
+
+.singin .last .legal:hover{
+    text-decoration: underline;
 }
