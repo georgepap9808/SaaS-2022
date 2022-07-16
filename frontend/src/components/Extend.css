@@ -1,0 +1,63 @@
+.extension .title{
+    font-size: 48px;
+    color: rgb(5, 150, 0);
+    text-decoration: none;
+    font-style: italic;
+    float: left;
+    margin: 15px;
+}
+.extension .logo{
+    float: right;
+    margin-top: 30px;
+    margin-right: 40px;
+}
+.extension .central{
+    margin-top: 90px;
+    margin-left: 420px;
+    margin-bottom: 20px;
+    width: 700px;
+    height: 420px;
+    background-color: lightgrey;
+    opacity: 0.8;
+    padding-top: 10px;
+    
+}
+
+.extension .central form{
+    margin-top:20px;
+    font-size: 22px;
+}
+.extension .central p{
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.extension button{
+    color: black;
+    border: 3.5px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    margin:10px;
+    background-color: white;
+}
+.extension button:hover{
+    background-color: rgb(168, 167, 167);
+}
+.extension .back{
+    color: black;
+    border: 3.5px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    margin:10px;
+    text-decoration: none;
+    background-color: white;
+}
+.extension .back:hover{
+    background-color: rgb(168, 167, 167);
+}
+
+.extension .last{
+    margin-top: 30px;
+}

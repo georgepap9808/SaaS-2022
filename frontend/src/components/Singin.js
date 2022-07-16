@@ -2,9 +2,17 @@ import './Singin.css';
 import logo from "../ntua_logo.png";
 import google_logo from "../google_logo.png"
 import thunder2 from "../thunder2.gif";
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
+
 
 const Singin = () => {
+
+    const history = useHistory();
+
+    const handleLogin = () => {
+        return(history.push("/home"));
+    }
+
     return ( 
         <div className="singin">
             <div className="ntua_logo">
@@ -20,7 +28,7 @@ const Singin = () => {
                 <img src={thunder2} width="55" height="55" alt="thunder gif" />
             </div>
             <div className="Google">
-                <Link to="/home" className="words"><img src={google_logo} width="21" height="20" alt="logo of google" />&nbsp;&nbsp;Continue with Google</Link>
+                <button onClick={handleLogin} className="words"><img src={google_logo} width="21" height="21" alt="logo of google" />&nbsp;&nbsp;Continue with Google</button>
             </div>
             <div className="line">
                 <hr />
