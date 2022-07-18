@@ -6,8 +6,6 @@ import Policy from './components/Policy';
 import About from './components/About';
 import Plans from './components/Plans';
 import Homepage1 from './components/Homepage1';
-import Homepage2 from './components/Homepage2';
-import Homepage3 from './components/Homepage3';
 import Extend from './components/Extend';
 import NotFound from './components/NotFound';
 
@@ -24,15 +22,6 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Homepage1 />
-          </Route>
-          <Route exact path="/home/ActualTotalLoad">
-            <Homepage1 />
-          </Route>
-          <Route exact path="/home/CrossBoarderFlows">
-            <Homepage2 />
-          </Route>
-          <Route exact path="/home/GenerationPerType">
-            <Homepage3 />
           </Route>
           <Route exact path="/extend">
             <Extend />

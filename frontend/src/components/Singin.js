@@ -3,15 +3,49 @@ import logo from "../ntua_logo.png";
 import google_logo from "../google_logo.png"
 import thunder2 from "../thunder2.gif";
 import { Link , useHistory } from "react-router-dom";
+import {useEffect, useState, useScript} from 'react';
+import {GoogleLogin} from 'react-google-login';
+import {Button} from '@material-ui/core';
 
 
 const Singin = () => {
 
     const history = useHistory();
+    const [data , setData] = useState([]);
+    const [token, setToken] = useState('');
+    const [mail , setMail] = useState('m@gmail.com');
+    const [error , setError] = useState('');
 
     const handleLogin = () => {
-        return(history.push("/home"));
-    }
+        fetch('/api/user/login' , {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(token)
+        })
+        .then(() =>{
+            fetch('http://localhost:3000//api/user/login')
+                .then(res => {
+                    if(!res.ok) {throw Error('error message!!!!');}
+                    return res.json();
+                })
+                .then(data =>{
+                    setData(data);
+                    setMail(data[1]);
+                })
+                .catch(err => {
+                    setError(err.message)
+                });
+        });
+        history.push("/home");
+    };
+
+    const googleSuccess = () => {
+
+    };
+
+    const googleFailure = () => {
+
+    };
 
     return ( 
         <div className="singin">
@@ -27,9 +61,28 @@ const Singin = () => {
             <div className="thunder">
                 <img src={thunder2} width="55" height="55" alt="thunder gif" />
             </div>
-            <div className="Google">
+            <GoogleLogin
+                clientId="google_id"
+                render={(renderProps) => (
+                    <Button 
+                        className = "googlesignin"
+                        color="primary"
+                        fullWidth
+                        onClick={renderProps.onClick}
+                        disabled={renderProps.disabled}
+                        startIcon={null}
+                        variant="contained"
+                        >
+                          Google Sing In  
+                    </Button>
+                )}
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy="single_host_origin"
+            />
+            {/*<div className="Google">
                 <button onClick={handleLogin} className="words"><img src={google_logo} width="21" height="21" alt="logo of google" />&nbsp;&nbsp;Continue with Google</button>
-            </div>
+                </div>*/}
             <div className="line">
                 <hr />
             </div>
@@ -42,4 +95,5 @@ const Singin = () => {
      );
 }
  
+
 export default Singin;

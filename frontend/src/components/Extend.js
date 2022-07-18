@@ -1,10 +1,11 @@
 import logo from "../ntua_logo.png";
 import './Extend.css';
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import {useEffect, useState} from 'react';
 
 
 const Extend = () => {
+    const history = useHistory();
     const [firstname , setFirstname] = useState('');
     const [lastname , setLastname] = useState('');
     const [mail, setMail] = useState('');
@@ -23,6 +24,7 @@ const Extend = () => {
         .then(() =>{
 
         })*/
+        history.push("/home");
     }
 
     return ( 
@@ -53,7 +55,7 @@ const Extend = () => {
                     <input type="number" value={daysextention} min="1" max="31" onChange={(e) => setDaysextension(e.target.value)} ></input>
                 </form>
                 <div className="last">
-                    <button onclick={handleextend}>Extend</button>
+                    <button onClick={handleextend}>Extend</button>
                     <button onClick={refresh}>Cancel</button>
                     <Link to="/home" className="back">Back</Link>
                 </div>

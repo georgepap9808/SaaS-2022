@@ -45,6 +45,10 @@ body{
 }
 */
 
+.singin .googlesignin{
+    width: 320px;
+}
+
 .singin .Google .words {
     display: inline-block;
     font-size: 25px;
