@@ -11,11 +11,18 @@ const Extend = () => {
     const [date, setDate] = useState(null);
     const [days, setDays] = useState(27);
     const [daysextention, setDaysextension] = useState(1);
-    const handleextend = () => {
-
-    }
     const refresh = () => {
-        window.location.reload()
+        window.location.reload();
+    }
+    const handleextend = () => {
+        /*fetch('jfncjdn' , {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(firstname, lastname, mail, date, daysextention)
+        })
+        .then(() =>{
+
+        })*/
     }
 
     return ( 
@@ -47,7 +54,7 @@ const Extend = () => {
                 </form>
                 <div className="last">
                     <button onclick={handleextend}>Extend</button>
-                    <button onclick={refresh}>Cancel</button>
+                    <button onClick={refresh}>Cancel</button>
                     <Link to="/home" className="back">Back</Link>
                 </div>
 

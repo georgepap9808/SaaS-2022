@@ -20,7 +20,7 @@
     margin-left: 25px;
     margin-bottom: 20px;
     width: 400px;
-    height: 800px;
+    height: 820px;
     float: left;
     background-color: grey;
     opacity: 0.9;
@@ -67,8 +67,8 @@
 .home1 .selectors .country select{
     padding-top: 12px;
     padding-bottom: 12px;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-left: 70px;
+    padding-right: 70px;
     margin-right: 5px;
     margin-bottom: 20px;
     background-color: lightgrey;
@@ -76,8 +76,20 @@
 .home1 .selectors .country select:hover{
     background-color: rgb(98, 191, 219);
 }
+.home1 .selectors .generation select{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    background-color: lightgrey;
+}
+.home1 .selectors .generation select:hover{
+    background-color: rgb(219, 152, 98);
+}
 .home1 .selectors button{
-    margin-top: 110px;
+    margin-top: 20px;
     margin-bottom: 10px;
     color: black;
     border: 3.5px solid black;
