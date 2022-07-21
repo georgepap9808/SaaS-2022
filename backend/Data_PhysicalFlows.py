@@ -42,7 +42,7 @@ def timed_job():
   print(data_file)
 
   df = pd.read_csv(data_file, delimiter='\t') # read data from file
-  df.drop(df[df['AreaTypeCode'] != "CTY"].index, inplace = True) # drop all unnecessary entries 
+  df.drop(df[df['OutAreaTypeCode'] != "CTY"].index, inplace = True) # drop all unnecessary entries 
   df.drop(df[pd.isna(df['FlowValue'])].index, inplace = True) # drop all NaN entries
   df.drop(['OutAreaCode', 'OutAreaTypeCode', 'OutAreaName', 'InAreaCode', 'InAreaTypeCode', 'InAreaName', 'UpdateTime', 'ResolutionCode'], axis=1, inplace = True) # drop all unnecessary columns 
   df.rename(columns = {'OutMapCode':'FromCountry', 'InMapCode':'ToCountry'}, inplace = True) # remap columns "Out/In-MapCode" to "Out/In-Country"

@@ -25,7 +25,7 @@ countries.drop(['AreaRefName', 'AreaName', 'AreaTypeCode'], axis=1, inplace = Tr
 countries_dict = dict(zip(countries['MapCode'], countries['Country']))
 
 # "Current" date
-yyyy, mm, dd, hh = 2022, 1, 30, 0
+yyyy, mm, dd, hh = 2022, 1, 1, 0
 
 @sched.scheduled_job('interval', seconds=20) # fetch new data every ...
 def timed_job():
@@ -44,7 +44,7 @@ def timed_job():
   df = pd.read_csv(data_file, delimiter='\t') # read data from file
   df.drop(df[df['AreaTypeCode'] != "CTY"].index, inplace = True) # drop all unnecessary entries 
   df.drop(df[pd.isna(df['ActualGenerationOutput'])].index, inplace = True) # drop all NaN entries
-  df.drop(['AreaCode', 'AreaTypeCode', 'AreaName', 'UpdateTime', 'ResolutionCode'], axis=1, inplace = True) # drop all unnecessary columns 
+  df.drop(['AreaCode', 'AreaTypeCode', 'AreaName', 'UpdateTime', 'ResolutionCode', 'ActualConsumption'], axis=1, inplace = True) # drop all unnecessary columns 
   df.rename(columns = {'MapCode':'Country'}, inplace = True) # remap column "MapCode" to "Country"
   df.replace({'Country': countries_dict}, inplace = True)
   #df_datetime_filtered = df[df['DateTime'] >= "2022-01-01 01:30:00.000"] # filter ...
