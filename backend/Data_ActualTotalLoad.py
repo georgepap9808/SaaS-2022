@@ -1,5 +1,4 @@
 import pandas as pd
-from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, jsonify
 import pika
@@ -7,7 +6,6 @@ import calendar
 #import datetime #
 
 # Scheduler that reads the new hourly data "every hour"
-#sched = BlockingScheduler()
 sched = BackgroundScheduler(daemon=True)
 
 # Establish messaging connection, channel and queue

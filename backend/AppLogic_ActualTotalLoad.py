@@ -9,8 +9,8 @@ from threading import Thread
 
 # Establish connection with database 
 client = pymongo.MongoClient("mongodb://localhost:27017")
-db = client["test_db"]
-collection = db["test_collection"]
+db = client["EnergyLive2022"]
+collection = db["ActualTotalLoad"]
 
 # Establish messaging connection, channel and queue
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
@@ -26,7 +26,6 @@ def data_consume(ch, method, properties, body):
     base_url = "http://127.0.0.1:5050/"
     response = requests.get(base_url+"42_GET_Data_ActualTotalLoad")  
     json_data = response.json()
-
     #print(json_data)
     print("# Data rows:", len(json_data))
 
@@ -41,9 +40,7 @@ def data_consume(ch, method, properties, body):
 
 # Consume messages
 channel.basic_consume(queue='ActualTotalLoad', on_message_callback=data_consume)
-#channel.start_consuming()
-mq_thread = Thread(target = channel.start_consuming)
-mq_thread.setDaemon(True)  
+mq_thread = Thread(target = channel.start_consuming, daemon = True)
 mq_thread.start()
 
 ############################################################################################################################################
@@ -55,10 +52,10 @@ app = Flask(__name__)
 def index():
     datetime = request.args.get('datetime')
     country = request.args.get('country')
-    print(type(datetime), datetime)
+    #print(type(datetime), datetime)
     
     results = []
-    for doc in collection.find({"DateTime": {"$lte": datetime}, "Country": country}, {"_id": 0, "Country": 0}):
+    for doc in collection.find({"DateTime": {"$gte": datetime}, "Country": country}, {"_id": 0, "Country": 0}):
         results.append(doc)
         
     #print(results)
