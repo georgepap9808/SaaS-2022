@@ -1,8 +1,12 @@
-import requests 
+
+import requests
 import pymongo
 import pika 
+
 from flask import Flask, request, jsonify
 from threading import Thread
+from user_service_client.client import authenticate
+from flask import abort
 
 ############################################################################################################################################
 # GET data and update the db
@@ -43,6 +47,8 @@ channel.basic_consume(queue='ActualTotalLoad', on_message_callback=data_consume)
 mq_thread = Thread(target = channel.start_consuming, daemon = True)
 mq_thread.start()
 
+
+
 ############################################################################################################################################
 # API for returning the requested data to the frontend 
 
@@ -50,6 +56,17 @@ app = Flask(__name__)
 
 @app.route('/GET_ActualTotalLoad', methods = ['GET'])
 def index():
+    
+    email  = request.args.get('email')
+    token  = request.args.get('token')
+    auth = authenticate(email,token)
+
+    if not auth: 
+        abort(401)
+
+    print("authenticated yayyy")
+
+    
     datetime = request.args.get('datetime')
     country = request.args.get('country')
     #print(type(datetime), datetime)
@@ -60,5 +77,7 @@ def index():
         
     #print(results)
     return jsonify(results)
+    
+
 
 app.run(port = 5000)

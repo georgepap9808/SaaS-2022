@@ -4,6 +4,9 @@ import pika
 from flask import Flask, request, jsonify
 from threading import Thread
 
+
+from user_service_client.client import authenticate
+from flask import abort
 ############################################################################################################################################
 # GET data and update the db
 
@@ -50,6 +53,14 @@ app = Flask(__name__)
 
 @app.route('/GET_PhysicalFlows', methods = ['GET'])
 def index():
+
+    email  = request.args.get('email')
+    token  = request.args.get('token')
+    auth = authenticate(email,token)
+
+    if not auth: 
+        abort(401)
+
     datetime = request.args.get('datetime')
     from_country = request.args.get('from_country')
     to_country = request.args.get('to_country')
