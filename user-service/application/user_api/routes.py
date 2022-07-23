@@ -1,6 +1,8 @@
 #olo to zoumi einai edo
 import datetime
 
+from flask_cors import cross_origin
+
 from . import user_api_blueprint
 from .. import db, login_manager
 from ..models import User
@@ -10,6 +12,7 @@ import requests
 
 
 @user_api_blueprint.route('/api/user/login', methods=['POST'])
+@cross_origin()
 def post_login():
 
 
@@ -49,6 +52,7 @@ def post_login():
     return make_response(jsonify({'message': 'Not logged in'}), 401)
 
 @user_api_blueprint.route('/api/user/logout', methods=['POST'])
+@cross_origin()
 def post_logout():
     user = User.query.filter_by(email = request.args['email']).first()
 
@@ -67,6 +71,7 @@ def post_logout():
     return make_response(jsonify({'message': 'User does not exist'}), 401)
 
 @user_api_blueprint.route('/api/user/subextend', methods=['POST'])
+@cross_origin()
 def post_subextend():
     user = User.query.filter_by(email = request.args['email']).first()
     days = request.args['days']
@@ -91,6 +96,7 @@ def post_subextend():
 
 
 @user_api_blueprint.route('/api/user/user', methods=['GET'])
+@cross_origin()
 def get_user():
     user = User.query.filter_by(email = request.args['email']).first()
 
