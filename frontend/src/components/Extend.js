@@ -4,14 +4,20 @@ import { Link , useHistory} from "react-router-dom";
 import {useEffect, useState} from 'react';
 
 
-const Extend = () => {
-    const history = useHistory();
-    const [firstname , setFirstname] = useState('');
-    const [lastname , setLastname] = useState('');
-    const [mail, setMail] = useState('');
+const Extend = (props) => {
+
+    const user=props.myuser;
+    const setUser=props.setMyuser;
+    const setToken=props.setaccessToken;
+    
+    const [firstname , setFirstname] = useState(user.given_name);
+    const [lastname , setLastname] = useState(user.family_name);
+    const [mail, setMail] = useState(user.email);
     const [date, setDate] = useState(null);
     const [days, setDays] = useState(27);
     const [daysextention, setDaysextension] = useState(1);
+    const history = useHistory();
+
     const refresh = () => {
         window.location.reload();
     }
@@ -35,15 +41,15 @@ const Extend = () => {
             <div className="central">
                 <form>
                     <lanel>First name:  </lanel>
-                    <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} ></input>
+                    <input type="text" defaultValue="" value={firstname} onChange={(e) => setFirstname(e.target.value)} ></input>
                 </form>
                 <form>
                     <lanel>Last name:  </lanel>
-                    <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} ></input>
+                    <input type="text" defaultValue="" value={lastname} onChange={(e) => setLastname(e.target.value)} ></input>
                 </form>
                 <form>
                     <lanel>E-mail:  </lanel>
-                    <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} ></input>
+                    <input type="email" defaultValue="" value={mail} onChange={(e) => setMail(e.target.value)} ></input>
                 </form>
                 <form>
                     <lanel>Last Login:  </lanel>
