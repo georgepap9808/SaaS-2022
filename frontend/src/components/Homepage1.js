@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 import './Homepage1.css';
 import Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
@@ -8,10 +8,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from 'react-helmet';
 
-const Homepage1 = () => {
+const Homepage1 = (props) => {
+
+    const mail=props.mymail;
+    const setToken=props.setaccessToken;
+    const setUser=props.setMyuser;
+
     const [error , setError] = useState('');
     const [data , setData] = useState([]);
-    const [mail, setMail] = useState('mymail@gmail.com');
     const [title , setTitle] = useState('Solar Employment Growth by Sector, 2010-2016');
     const [array , setArray] = useState([23220 ,33830 , 292920 , 99990, 99900 , 100000 , 200000 ,178990]);
     const [date, setDate] = useState(null);
@@ -25,6 +29,7 @@ const Homepage1 = () => {
     const [option3 , setOption3] = useState(false);
     const [status, setStatus] = useState('Live');
     const [days, setDays] = useState(27);
+    const history = useHistory();
 
     
 
@@ -37,32 +42,24 @@ const Homepage1 = () => {
     const handleDateChange = () => {
 
     }
-    const handleDownloadim = () => {
-        
-    }
-    const handleDownloaddt = () => {
-        
+    const handleLogout = () => {
+        setUser({});
+        setToken('');
+        history.push("/");
     }
     const handleClick = () => {
             /*if(quantity=="1"){
-                fetch('jfncjdn' , {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json'},
-                    body: JSON.stringify([quantity, country])
-                })
-                .then(() =>{
-                    fetch('jfncjdn')
-                        .then(res => {
-                            if(!res.ok) {throw Error('error message!!!!');}
-                            return res.json();
-                        })
-                        .then(data =>{
-                            setData(data);
-                        })
-                        .catch(err => {
-                            setError(err.message)
-                        });
-                });
+                fetch(`url/${date , country}`)
+                    .then(res => {
+                        if(!res.ok) {throw Error('error message!!!!');}
+                        return res.json();
+                    })
+                    .then(data =>{
+                        setData(data);
+                    })
+                    .catch(err => {
+                        setError(err.message)
+                    });
             }
             if(quantity=="2"){
                 fetch('jfncjdn' , {
@@ -105,27 +102,33 @@ const Homepage1 = () => {
                 });
             }*/
             Highcharts.chart('container', {
+
                 title: {
-                    text: title
+                    text: 'Solar Employment Growth by Sector, 2010-2016'
                 },
+            
                 subtitle: {
-                    text: 'Source: thesolafalserfoundation.com'
+                    text: 'Source: thesolarfoundation.com'
                 },
+            
                 yAxis: {
                     title: {
                         text: 'Number of Employees'
                     }
                 },
+            
                 xAxis: {
                     accessibility: {
                         rangeDescription: 'Range: 2010 to 2017'
                     }
                 },
+            
                 legend: {
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'middle'
                 },
+            
                 plotOptions: {
                     series: {
                         label: {
@@ -134,10 +137,24 @@ const Homepage1 = () => {
                         pointStart: 2010
                     }
                 },
+            
                 series: [{
-                    name: 'Data',
-                    data: array
+                    name: 'Installation',
+                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                }, {
+                    name: 'Manufacturing',
+                    data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+                }, {
+                    name: 'Sales & Distribution',
+                    data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+                }, {
+                    name: 'Project Development',
+                    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                }, {
+                    name: 'Other',
+                    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
                 }],
+            
                 responsive: {
                     rules: [{
                         condition: {
@@ -152,7 +169,8 @@ const Homepage1 = () => {
                         }
                     }]
                 }
-            }); 
+            
+            });
     }
 
     return ( 
@@ -419,9 +437,7 @@ const Homepage1 = () => {
                 </div>}
                 <button onClick={refresh}>Refresh</button>
             </div>
-
             <div className="charts">
-                
                 <figure className="highcharts-figure">
                     <button className="high" onClick={handleClick}>show chart</button> <br /><br />
                     <div id="container"></div>
@@ -431,14 +447,22 @@ const Homepage1 = () => {
                         enhanced readability. 
                     </p>
                 </figure>
-                <Link to="/" className="logout">Logout</Link>
+                <button className="logout" onClick={handleLogout}>Logout</button>
+                <br />
+                {date}
+                <br />
+                {quantity}
+                <br />
+                {country}
+                <br />
+                {countryfrom}<br />
+                {countryto}<br />
+                {generation}
             </div>
 
             <div className="update">
                 <p>Latest update: 08/04/2022 20:35</p>
             </div>
-            <button className="downloadim" onClick={handleDownloadim}>Download image</button>
-            <button className="downloaddt" onClick={handleDownloaddt}>Download data</button>
             <script src="https://code.highcharts.com/modules/exporting.js"></script>
             <div className="line">
                 <hr />

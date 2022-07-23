@@ -13,18 +13,21 @@ import NotFound from './components/NotFound';
 
 function App() {
   
+  const [token, setToken] = useState('');
+  const [user , setUser] = useState({});
+
   return (
     <Router>
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <Singin />
+            <Singin accesstoken={token} setaccessToken={setToken} myuser={user} setMyuser={setUser}/>
           </Route>
           <Route exact path="/home">
-            <Homepage1 />
+            <Homepage1 mymail={user.email} setMyuser={setUser} setaccessToken={setToken}/>
           </Route>
           <Route exact path="/extend">
-            <Extend />
+            <Extend setaccessToken={setToken} myuser={user} setMyuser={setUser}/>
           </Route>
           <Route exact path="/policy">
             <Policy />

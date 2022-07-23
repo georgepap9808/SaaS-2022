@@ -45,8 +45,17 @@ body{
 }
 */
 
-.singin .googlesignin{
-    width: 320px;
+/*.singin .googlesignin{
+    width: 338px;
+}*/
+
+.singin #signInDiv{
+    padding-left: 625px;
+    opacity: 0.7;
+}
+
+.singin #signInDiv:hover{
+    opacity: 1;
 }
 
 .singin .Google .words {
