@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  actualtotalload_data:
+    container_name: actualtotalload_data
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    #image: actualtotalload_data
+    ports:
+      - "9000:9000"
+
+  actualtotalload_applogic:
+    container_name: actualtotalload_applogic
+    build:
+      context: ./app_logic
+      dockerfile: Dockerfile
+    #image: actualtotalload_applogic
+    ports:
+      - "9050:9050"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports: 
+      - "27017:27017" 
+    volumes:
+      - "data-vol:/data/db"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    hostname: rabbitmqhost
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+volumes:
+  data-vol:
