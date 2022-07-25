@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  aggrgenerationpertype_data:
+    container_name: aggrgenerationpertype_data
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    #image: aggrgenerationpertype_data
+    ports:
+      - "9002:9002"
+
+  aggrgenerationpertype_applogic:
+    container_name: aggrgenerationpertype_applogic
+    build:
+      context: ./app_logic
+      dockerfile: Dockerfile
+    #image: aggrgenerationpertype_applogic
+    ports:
+      - "9052:9052"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports: 
+      - "27017:27017" 
+    volumes:
+      - "data-vol:/data/db"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    hostname: rabbitmqhost
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+volumes:
+  data-vol:
