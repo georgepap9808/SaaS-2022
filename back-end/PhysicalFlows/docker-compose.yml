@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  physicalflows_data:
+    container_name: physicalflows_data
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    #image: physicalflows_data
+    ports:
+      - "9001:9001"
+
+  physicalflows_applogic:
+    container_name: physicalflows_applogic
+    build:
+      context: ./app_logic
+      dockerfile: Dockerfile
+    #image: physicalflows_applogic
+    ports:
+      - "9051:9051"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports: 
+      - "27017:27017" 
+    volumes:
+      - "data-vol:/data/db"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    hostname: rabbitmqhost
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+volumes:
+  data-vol:
