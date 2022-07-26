@@ -3,6 +3,7 @@ version: '3'
 services:
   aggrgenerationpertype_data:
     container_name: aggrgenerationpertype_data
+    restart: always
     build:
       context: ./data
       dockerfile: Dockerfile
@@ -12,12 +13,23 @@ services:
 
   aggrgenerationpertype_applogic:
     container_name: aggrgenerationpertype_applogic
+    restart: always
     build:
       context: ./app_logic
       dockerfile: Dockerfile
     #image: aggrgenerationpertype_applogic
     ports:
       - "9052:9052"
+
+  userservice:
+    container_name: userservice
+    restart: always
+    build:
+      context: ../../user-service
+      dockerfile: Dockerfile
+    #image: userservice
+    ports:
+      - "5000:5000"
 
   mongodb:
     container_name: mongodb
