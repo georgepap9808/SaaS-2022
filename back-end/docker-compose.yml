@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  actualtotalload_data:
+    container_name: actualtotalload_data
+    restart: always
+    build:
+      context: ./ActualTotalLoad/data
+      dockerfile: Dockerfile
+    #image: actualtotalload_data
+    ports:
+      - "9000:9000"
+
+  actualtotalload_applogic:
+    container_name: actualtotalload_applogic
+    restart: always
+    build:
+      context: ./ActualTotalLoad/app_logic
+      dockerfile: Dockerfile
+    #image: actualtotalload_applogic
+    ports:
+      - "9050:9050"
+
+  physicalflows_data:
+    container_name: physicalflows_data
+    restart: always
+    build:
+      context: ./PhysicalFlows/data
+      dockerfile: Dockerfile
+    #image: physicalflows_data
+    ports:
+      - "9001:9001"
+
+  physicalflows_applogic:
+    container_name: physicalflows_applogic
+    restart: always
+    build:
+      context: ./PhysicalFlows/app_logic
+      dockerfile: Dockerfile
+    #image: physicalflows_applogic
+    ports:
+      - "9051:9051"
+
+  aggrgenerationpertype_data:
+    container_name: aggrgenerationpertype_data
+    restart: always
+    build:
+      context: ./AggrGenerationPerType/data
+      dockerfile: Dockerfile
+    #image: aggrgenerationpertype_data
+    ports:
+      - "9002:9002"
+
+  aggrgenerationpertype_applogic:
+    container_name: aggrgenerationpertype_applogic
+    restart: always
+    build:
+      context: ./AggrGenerationPerType/app_logic
+      dockerfile: Dockerfile
+    #image: aggrgenerationpertype_applogic
+    ports:
+      - "9052:9052"
+
+  userservice:
+    container_name: userservice
+    restart: always
+    build:
+      context: ../user-service
+      dockerfile: Dockerfile
+    #image: userservice
+    ports:
+      - "5000:5000"
+      
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports: 
+      - "27017:27017" 
+    volumes:
+      - "data-vol:/data/db"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    hostname: rabbitmqhost
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+volumes:
+  data-vol:
