@@ -3,7 +3,7 @@
 
 In each one of the 3 different dataset folders, in the data/ folder there should be the corresponding csv data files unzipped.
 
-Build the app by executing the following command
+Build the app by executing the following command: <br /><br />
 
 docker-compose up -d 
 
