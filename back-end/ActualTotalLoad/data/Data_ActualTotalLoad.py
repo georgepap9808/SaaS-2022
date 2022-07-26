@@ -29,7 +29,7 @@ countries.drop(['AreaRefName', 'AreaName', 'AreaTypeCode'], axis=1, inplace = Tr
 countries_dict = dict(zip(countries['MapCode'], countries['Country']))
 
 # "Current" date
-yyyy, mm, dd, hh = 2022, 1, 1, 0
+yyyy, mm, dd, hh = 2022, 1, 1, 1
 
 @sched.scheduled_job('interval', seconds=20) # fetch new data every ...
 def timed_job():

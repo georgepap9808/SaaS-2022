@@ -1,12 +1,10 @@
 import requests 
 import pymongo
 import pika 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from threading import Thread
 import time 
-
-'''from user_service_client.client import authenticate
-from flask import abort'''
+from flask_cors import CORS, cross_origin
 
 time.sleep(180) # for docker compose to run in order and smoothly 
 
@@ -56,14 +54,17 @@ mq_thread.start()
 # API for returning the requested data to the frontend 
 
 app = Flask(__name__)
+cors = CORS(app)
 
 @app.route('/GET_ActualTotalLoad', methods = ['GET'])
+@cross_origin()
 def index():
-    '''email  = request.args.get('email')
-    token  = request.args.get('token')
-    auth = authenticate(email, token)
-    if not auth: 
-        abort(401)'''
+    email = request.args.get('email')
+    token = request.args.get('token')
+    #auth_response = requests.get("http://127.0.0.1:5000/api/user/user", params={'email': email,'token': token}) # for localhost
+    auth_response = requests.get("http://userservice:5000/api/user/user", params={'email': email,'token': token}) # for docker
+    if not auth_response.status_code == 200:  
+        abort(401)
 
     datetime = request.args.get('datetime')
     country = request.args.get('country')

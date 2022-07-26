@@ -3,6 +3,7 @@ version: '3'
 services:
   actualtotalload_data:
     container_name: actualtotalload_data
+    restart: always
     build:
       context: ./data
       dockerfile: Dockerfile
@@ -12,12 +13,23 @@ services:
 
   actualtotalload_applogic:
     container_name: actualtotalload_applogic
+    restart: always
     build:
       context: ./app_logic
       dockerfile: Dockerfile
     #image: actualtotalload_applogic
     ports:
       - "9050:9050"
+
+  userservice:
+    container_name: userservice
+    restart: always
+    build:
+      context: ../../user-service
+      dockerfile: Dockerfile
+    #image: userservice
+    ports:
+      - "5000:5000"
 
   mongodb:
     container_name: mongodb
