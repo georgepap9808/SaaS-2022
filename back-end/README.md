@@ -1,9 +1,9 @@
 ## Dockerized back-end
+### Instructions:
 
-"in each one of the 3 different dataset folders, in the data/ folder there should be the corresponding csv data files unzipped"
+In each one of the 3 different dataset folders, in the data/ folder there should be the corresponding csv data files unzipped.
 
-docker pull mongo
-docker pull rabbitmq
+Build the app by executing the following command
 
 docker-compose up -d 
 
