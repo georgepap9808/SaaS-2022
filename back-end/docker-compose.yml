@@ -7,7 +7,7 @@ services:
     build:
       context: ./ActualTotalLoad/data
       dockerfile: Dockerfile
-    #image: actualtotalload_data
+    image: actualtotalload_data
     ports:
       - "9000:9000"
 
@@ -17,7 +17,7 @@ services:
     build:
       context: ./ActualTotalLoad/app_logic
       dockerfile: Dockerfile
-    #image: actualtotalload_applogic
+    image: actualtotalload_applogic
     ports:
       - "9050:9050"
 
@@ -27,7 +27,7 @@ services:
     build:
       context: ./PhysicalFlows/data
       dockerfile: Dockerfile
-    #image: physicalflows_data
+    image: physicalflows_data
     ports:
       - "9001:9001"
 
@@ -37,7 +37,7 @@ services:
     build:
       context: ./PhysicalFlows/app_logic
       dockerfile: Dockerfile
-    #image: physicalflows_applogic
+    image: physicalflows_applogic
     ports:
       - "9051:9051"
 
@@ -47,7 +47,7 @@ services:
     build:
       context: ./AggrGenerationPerType/data
       dockerfile: Dockerfile
-    #image: aggrgenerationpertype_data
+    image: aggrgenerationpertype_data
     ports:
       - "9002:9002"
 
@@ -57,7 +57,7 @@ services:
     build:
       context: ./AggrGenerationPerType/app_logic
       dockerfile: Dockerfile
-    #image: aggrgenerationpertype_applogic
+    image: aggrgenerationpertype_applogic
     ports:
       - "9052:9052"
 
@@ -67,12 +67,13 @@ services:
     build:
       context: ../user-service
       dockerfile: Dockerfile
-    #image: userservice
+    image: userservice
     ports:
       - "5000:5000"
       
   mongodb:
     container_name: mongodb
+    restart: always
     image: mongo
     ports: 
       - "27017:27017" 
@@ -81,6 +82,7 @@ services:
 
   rabbitmq:
     container_name: rabbitmq
+    restart: always
     image: rabbitmq
     hostname: rabbitmqhost
     ports:
