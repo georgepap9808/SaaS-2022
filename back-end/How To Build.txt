@@ -4,6 +4,4 @@
 docker pull mongo
 docker pull rabbitmq
 
-# in each one of the 3 different dataset-folders, 
 docker-compose up -d 
-
