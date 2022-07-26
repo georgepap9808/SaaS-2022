@@ -3,6 +3,7 @@ version: '3'
 services:
   physicalflows_data:
     container_name: physicalflows_data
+    restart: always
     build:
       context: ./data
       dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
 
   physicalflows_applogic:
     container_name: physicalflows_applogic
+    restart: always
     build:
       context: ./app_logic
       dockerfile: Dockerfile
@@ -19,6 +21,16 @@ services:
     ports:
       - "9051:9051"
 
+  userservice:
+    container_name: userservice
+    restart: always
+    build:
+      context: ../../user-service
+      dockerfile: Dockerfile
+    #image: userservice
+    ports:
+      - "5000:5000"
+      
   mongodb:
     container_name: mongodb
     image: mongo
